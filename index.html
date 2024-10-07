@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tema 4</title>
+</head>
+<body>
+    <label for="startoferta">Data inceput:</label>
+    <input type="date" id="startInterval"><br><br>
+    <label for="endinterval">Data sfarsit:</label>
+    <input type="date" id="endInterval"><br><br>
+    <button id="addButton" disabled>ADD</button><br><br>
+    <button id="printButton">Print</button><br><br>
+    <button  id="makeselectButton" style="display: none;">Make Select</button><br><br>
+    <select id="selectElement" style="display: none;"></select>
+    <script>
+        //clasa obj
+        class interval_valabilitate_oferta{
+            interval(start,end){
+                this.start= start;
+                this.end= end;
+            }
+        }
+        // afiseaza valabilitatea
+        function afiseazaValabilitatea(){
+            return 'valabilitatea:de la ${this.start} pana la ${this.end}';
+        }
+
+        //verifica data daca se afla in interval
+        function verificaDataInterval(){
+            return data>=this.start && data<=this.end;
+        }
+
+        //set interv inceput
+
+        function setIntervalStart(start){
+            this.start= start;
+        }
+
+        //set interval sf
+        function setIntervalEnd(end){
+            this.end=end;
+        }
+
+        function getIntervalstart(){
+            return this.start
+        }
+
+        function getIntervalEnd(){
+            return this.end
+        }
+
+        let obiecte =[];
+
+        const startIntervalInput= document.getElementById('startInterval');
+        const endIntervalInput= document.getElementById('endInterval');
+        const addButton=  document.getElementById('addButton');
+        const printButton= document.getElementById('printButton');
+        const makeselectButton = document.getElementById('makeselectButton');
+        const selectElement= document.getElementById('selectElement');
+        // pt a activa but add cand ambele campuri sunt completate
+
+        startIntervalInput.addEventListener('input',function(){
+            addButton.disabled= !(startIntervalInput.value && endIntervalInput.value);
+        })
+
+        // operatorul ! este uti pt a nega o expr, adc pt a inversa o val de adv a unei cond 
+        endIntervalInput.addEventListener('input', function(){
+            addButton.disabled= !(startIntervalInput.value && endIntervalInput.value);
+        })
+        // operatorul && este uti pt a verf ambele cond 
+
+        //fct pt ad unui obj in tablou
+        addButton.addEventListener('click', function(){
+            const start = startIntervalInput.value;
+            const end = endIntervalInput.value;
+        if("start" && "end"){
+            const invertvalValabilitateNou= new interval_valabilitate_oferta("start","end");
+            obiecte.push(invertvalValabilitateNou);
+             //.push am fol pt a adauga elem noi in taboul fara a schimba ordinea obt create
+            startIntervalInput.value="";
+            endIntervalInput.value="";
+            addButton.disabled= true;
+            //cand sunt min 5 obiecte
+            if (obiecte.length>=5){
+                printButton.style.display = "incline-block";
+                makeselectButton.style.display= "incline-block";
+            }
+        }
+    })
+    //fct pt a print obj in consola
+    printButton.addEventListener('click',function(){
+        
+   
+    </script>
+</body>
+</html>
